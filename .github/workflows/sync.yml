@@ -1,0 +1,25 @@
+name: Sync Fork Daily
+
+on:
+  schedule:
+    # 每天 UTC 时间 20:00 (北京时间凌晨 04:00) 自动执行同步
+    - cron: '0 20 * * *'
+  # 允许手动在 GitHub 页面上触发同步
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Sync upstream changes
+        uses: abranches/actions-upstream-sync@v2.0.2
+        with:
+          upstream_repository: hafrey1/LunaTV-config
+          upstream_branch: main
+          target_branch: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
