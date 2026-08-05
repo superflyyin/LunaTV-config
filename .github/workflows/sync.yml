@@ -10,16 +10,12 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout target branch
-        uses: actions/checkout@v4
-        with:
-          ref: main
+    permissions:
+      contents: write # 赋予写入权限，允许更新代码
 
+    steps:
       - name: Sync upstream changes
-        uses: a2441918/apps-upstream-sync@v2.0.2
-        with:
-          upstream_repository: hafrey1/LunaTV-config
-          upstream_branch: main
-          target_branch: main
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh repo sync ${{ github.repository }} -b main
