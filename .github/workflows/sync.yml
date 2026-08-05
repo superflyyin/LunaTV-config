@@ -17,7 +17,7 @@ jobs:
           ref: main
 
       - name: Sync upstream changes
-        uses: abranches/actions-upstream-sync@v2.0.2
+        uses: a2441918/apps-upstream-sync@v2.0.2
         with:
           upstream_repository: hafrey1/LunaTV-config
           upstream_branch: main
